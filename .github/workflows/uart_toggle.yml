@@ -1,20 +1,22 @@
-name: esp32 uart toggle test
+name: UART test
 
 on:
+  workflow_dispatch:
   push:
+    branches: [ main ]
 
 jobs:
   uart-test:
     runs-on: self-hosted
 
     steps:
-      - name: checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: install python dependency
-        run: pip install pyserial
-
-      - name: run esp32 uart toggle test
+      - name: Show files (debug)
+        run: dir
         shell: cmd
-        run: |
-          toggle.bat
+
+      - name: Run toggle.bat
+        run: .\toggle.bat
+        shell: cmd
