@@ -17,6 +17,6 @@ jobs:
         run: dir
         shell: cmd
 
-      - name: Run toggle.bat
-        run: .\toggle.bat
+      - name: Run UART toggle test
+        run: .\ESP32_UART_Toggle.bat
         shell: cmd
