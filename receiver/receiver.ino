@@ -3,9 +3,9 @@
 #define RX_PIN 16
 #define BAUD_RATE 115200
 
-char lastBit = 0;
-int bitCount = 0;
-bool toggleError = false;
+char expected[] = "10101";
+int indexPos = 0;
+bool testFail = false;
 
 void setup() {
   Serial.begin(115200);
@@ -17,29 +17,27 @@ void loop() {
     char c = Serial2.read();
 
     if (c == '\n') {
-      if (!toggleError && bitCount == 5) {
-        Serial.println("UART TOGGLE TEST PASS");
+      if (!testFail && indexPos == 5) {
+        Serial.println("uart toggle test pass");
       } else {
-        Serial.println("UART TOGGLE TEST FAIL");
+        Serial.println("uart toggle test fail");
       }
 
-      // reset
-      lastBit = 0;
-      bitCount = 0;
-      toggleError = false;
+      // reset for next cycle
+      indexPos = 0;
+      testFail = false;
       return;
     }
 
     if (c != '0' && c != '1') {
-      toggleError = true;
+      testFail = true;
       continue;
     }
 
-    if (lastBit != 0 && c == lastBit) {
-      toggleError = true;  // no toggle detected
+    if (c != expected[indexPos]) {
+      testFail = true;
     }
 
-    lastBit = c;
-    bitCount++;
+    indexPos++;
   }
 }

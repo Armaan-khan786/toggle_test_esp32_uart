@@ -3,7 +3,7 @@
 #define RX_PIN 16
 #define BAUD_RATE 115200
 
-bool state = true;  // start at '1'
+const char pattern[] = "10101\n";
 
 void setup() {
   Serial.begin(115200);
@@ -11,11 +11,6 @@ void setup() {
 }
 
 void loop() {
-  for (int i = 0; i < 5; i++) {
-    Serial2.write(state ? '1' : '0');
-    state = !state;
-    delay(10);
-  }
-  Serial2.write('\n');
+  Serial2.print(pattern);
   delay(500);
 }
