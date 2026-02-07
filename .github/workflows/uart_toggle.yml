@@ -1,0 +1,20 @@
+name: esp32 uart toggle test
+
+on:
+  push:
+
+jobs:
+  uart-test:
+    runs-on: self-hosted
+
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+
+      - name: install python dependency
+        run: pip install pyserial
+
+      - name: run esp32 uart toggle test
+        shell: cmd
+        run: |
+          toggle.bat
