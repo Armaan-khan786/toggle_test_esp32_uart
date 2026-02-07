@@ -1,22 +1,22 @@
 @echo off
 setlocal
 
-REM Always run from repo root
+REM Always run from the BAT file's directory
 cd /d %~dp0
 
 set fqbn=esp32:esp32:esp32
 
 echo compiling sender
-arduino-cli compile --fqbn %fqbn% sender || exit /b 1
+arduino-cli compile --fqbn %fqbn% ..\sender || exit /b 1
 
 echo compiling receiver
-arduino-cli compile --fqbn %fqbn% receiver || exit /b 1
+arduino-cli compile --fqbn %fqbn% . || exit /b 1
 
 echo flashing sender on com6
-arduino-cli upload -p com6 --fqbn %fqbn% sender || exit /b 1
+arduino-cli upload -p com6 --fqbn %fqbn% ..\sender || exit /b 1
 
 echo flashing receiver on com7
-arduino-cli upload -p com7 --fqbn %fqbn% receiver || exit /b 1
+arduino-cli upload -p com7 --fqbn %fqbn% . || exit /b 1
 
 echo waiting for boards to boot
 timeout /t 5 >nul
