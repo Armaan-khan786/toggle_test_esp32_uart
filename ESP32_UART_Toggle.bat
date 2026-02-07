@@ -22,7 +22,7 @@ echo waiting for boards to boot
 timeout /t 5 >nul
 
 echo reading uart logs from receiver
-python receiver\tools\uart_read.py com7 || exit /b 1
+python tools\uart_read.py com7 || exit /b 1
 
 echo uart toggle test passed
 exit /b 0
